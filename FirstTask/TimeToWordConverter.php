@@ -5,8 +5,14 @@ namespace VK\Tasks\Task1;
 require_once 'TimeType.php';
 require_once 'TimeToWordConvertingInterface.php';
 
+/**
+ *
+ */
 final class TimeToWordConverter implements TimeToWordConvertingInterface
 {
+    /**
+     * Списки констант для словесных форм
+     */
     private const HOURS_LIST = [
         'Один час',
         'Два часа',
@@ -21,7 +27,6 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
         'Одиннадцать часов',
         'Двенадцать часов'
     ];
-
     private const HOURS_WITH_MINUTES_LIST = [
         'часа',
         'двух',
@@ -36,7 +41,6 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
         'одиннадцати',
         'двенадцати'
     ];
-
     private const HOURS_WITH_HALF_QUATERS_LIST = [
         'певрого',
         'второго',
@@ -51,7 +55,6 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
         'одиннадцатого',
         'двенадцатого'
     ];
-
     private const MINUTES_LIST = [
         'Одна минута',
         'Две минуты',
@@ -85,6 +88,8 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
     ];
 
     /**
+     * Функция конвертации минут в словесную форму
+     *
      * @param int $minutes
      * @return string
      */
@@ -94,6 +99,7 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
     }
 
     /**
+     * Функция конвертации часов для формата "до/после" в словесную форму
      *
      * @param int $hours
      * @param bool $withMin
@@ -105,6 +111,8 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
     }
 
     /**
+     * Функция конвертации часов для формата "ровное количество" в словесную форму
+     *
      * @param int $hours
      * @return string
      */
@@ -114,6 +122,8 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
     }
 
     /**
+     * Функция конвертации часов для формата "четверть" в словесную форму
+     *
      * @param int $hours
      * @return string
      */
@@ -122,6 +132,12 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
         return self::HOURS_WITH_HALF_QUATERS_LIST[$hours];
     }
 
+    /**
+     * Функция получения формата шаблона для ковертации
+     *
+     * @param $minutes
+     * @return int
+     */
     private function getConvertTemplateType($minutes): int
     {
         if ($minutes === 0) return TimeType::EXACT_HOURS;
@@ -132,7 +148,14 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
         return TimeType::HOURS_WITH_MINUTES_BEFORE;
     }
 
-    private function getTimeNumberFormat(int $hours, int $minutes)
+    /**
+     * Функция для получения циферной записи указанного времени
+     *
+     * @param int $hours
+     * @param int $minutes
+     * @return string
+     */
+    private function getTimeNumberFormat(int $hours, int $minutes) : string
     {
         if ($minutes < 10) {
             return sprintf("%s:0%s", $hours, $minutes);
@@ -142,8 +165,8 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
     }
 
     /**
-     * function for data convertation
-     * returns converted string in human-readable format
+     * Функция выполнения ковернтации
+     * возвращает человеко-читаему строку для указанного времени
      *
      * @param int $hours
      * @param int $minutes
