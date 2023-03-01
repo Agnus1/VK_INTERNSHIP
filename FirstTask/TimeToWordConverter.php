@@ -1,17 +1,18 @@
 <?php
 
+/**
+ * @author Igor Kim <igorkim200218@gmail.com>
+ */
+
 namespace VK\Tasks\Task1;
 
 require_once 'TimeType.php';
 require_once 'TimeToWordConvertingInterface.php';
 
-/**
- *
- */
 final class TimeToWordConverter implements TimeToWordConvertingInterface
 {
     /**
-     * Списки констант для словесных форм
+     * @const  Списки констант для словесных форм
      */
     private const HOURS_LIST = [
         'Один час',
@@ -133,6 +134,7 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
     }
 
     /**
+     * @uses TimeType
      * Функция получения формата шаблона для ковертации
      *
      * @param $minutes
@@ -166,11 +168,10 @@ final class TimeToWordConverter implements TimeToWordConvertingInterface
 
     /**
      * Функция выполнения ковернтации
-     * возвращает человеко-читаему строку для указанного времени
      *
      * @param int $hours
      * @param int $minutes
-     * @return string
+     * @return string человеко-читаемая строка для указанного времени
      */
     public function convert(int $hours, int $minutes = 0): string
     {
